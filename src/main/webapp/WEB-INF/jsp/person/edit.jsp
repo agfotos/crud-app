@@ -1,34 +1,14 @@
-<%-- 
-    Document   : edit
-    Created on : Apr 22, 2011, 3:04:46 PM
-    Author     : FMilens
---%>
-
-<%@taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
-<%@taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions'%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
-
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Edit Person</title>
-                         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js"></script>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<%@ include file="../header.jsp" %>
  <script type="text/javascript">
-      $(function() {  // <-- ensure form's HTML is ready
-
-  $("#personForm").validate({  // <-- initialize plugin on the form.
-    // your rules and other options,
+      $(function() {  
+    		 $.validator.addMethod("customemail", 
+    				    function(value, element) {
+    				        return /^([a-zA-Z0-9_.\-+])+\@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/.test(value);
+    				    }, 
+    				    "Invalid email format"
+    				);
+  $("#personForm").validate({ 
+   
     rules: {
       firstName: { 
         required: true,
@@ -42,9 +22,7 @@
       },
       emailAddress: {
         required: true,
-        minlength: 5,
-        maxlength: 50,
-  		email: true
+  		customemail: true
       },
       streetAddress: {
     	  required: true,
@@ -94,7 +72,7 @@
             </div>
             
             <div class="form-group">
-            	<label class="control-label col-sm-2" for="flastName">Last Name:</label>
+            	<label class="control-label col-sm-2" for="lastName">Last Name:</label>
             	<div class="col-sm-2">
             		<input class="form-control" type="text" name="lastName" value="${person.lastName}" />
             	</div>
