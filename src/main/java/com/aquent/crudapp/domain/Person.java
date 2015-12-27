@@ -2,6 +2,7 @@ package com.aquent.crudapp.domain;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.Pattern;
 
 /**
  * The person entity corresponding to the "person" table in the database.
@@ -9,6 +10,8 @@ import javax.validation.constraints.Size;
 public class Person {
 
     private Integer personId;
+    
+    private Integer clientId;
 
     @NotNull
     @Size(min = 1, max = 50, message = "First name is required with maximum length of 50")
@@ -19,7 +22,11 @@ public class Person {
     private String lastName;
 
     @NotNull
-    @Size(min = 1, max = 50, message = "Email address is required with maximum length of 50")
+    @Size(min = 5, max = 50, message = "Email address is required with maximum length of 50")
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+                 message="Email is not formatted correctly.")
     private String emailAddress;
 
     @NotNull
@@ -46,7 +53,17 @@ public class Person {
         this.personId = personId;
     }
 
-    public String getFirstName() {
+    
+    
+    public Integer getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(Integer clientId) {
+		this.clientId = clientId;
+	}
+
+	public String getFirstName() {
         return firstName;
     }
 

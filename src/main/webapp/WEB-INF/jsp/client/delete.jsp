@@ -12,7 +12,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Delete Person</title>
-                                <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+        
+                               <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -24,12 +25,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     </head>
     <body>
-        <h1>Delete Person</h1>
-        <p>You are about to delete the person ${person.firstName} ${person.lastName}:  Are you sure?</p>
-        <form action="${pageContext.request.contextPath}/person/delete" method="post">
-            <input type="hidden" name="personId" value="${person.personId}"/>
-            <input type="submit" name="command" value="Cancel"/>
-            <input type="submit" name="command" value="Delete"/>
+        <h3>Delete Client</h3>
+        <p>You are about to delete the client ${client.companyName}:  Are you sure?</p>
+        <form action="${pageContext.request.contextPath}/client/delete" method="post" class="form-horizontal" role="form">
+            <input type="hidden" name="clientId" value="${client.clientId}"/>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-2">
+					<button type="submit" class="btn btn-default" name="command" value="Cancel">Cancel</button>
+					<button type="submit" class="btn btn-default" name="command" value="Delete">Delete</button>
+
+           		</div>
+           </div>
         </form>
     </body>
 </html>

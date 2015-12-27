@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.aquent.crudapp.domain.Person;
+import com.aquent.crudapp.service.ClientService;
 import com.aquent.crudapp.service.PersonService;
 
 /**
@@ -23,8 +24,12 @@ import com.aquent.crudapp.service.PersonService;
 public class PersonController {
 
     public static final String COMMAND_DELETE = "Delete";
+    
+    public static final String COMMAND_CANCEL = "Cancel";
 
     @Inject private PersonService personService;
+    
+    @Inject private ClientService clientService;
 
     /**
      * Renders the listing page.
@@ -60,17 +65,21 @@ public class PersonController {
      * @return redirect, or create view with errors
      */
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public ModelAndView create(Person person) {
-        List<String> errors = personService.validatePerson(person);
-        if (errors.isEmpty()) {
-            personService.createPerson(person);
-            return new ModelAndView("redirect:/person/list");
-        } else {
-            ModelAndView mav = new ModelAndView("person/create");
-            mav.addObject("person", person);
-            mav.addObject("errors", errors);
-            return mav;
-        }
+    public ModelAndView create(Person person,@RequestParam String command) {
+    	if (COMMAND_CANCEL.equals(command)) {
+    		return new ModelAndView("redirect:/person/list");
+    	}else{
+    		List<String> errors = personService.validatePerson(person);
+    		if (errors.isEmpty()) {
+    			personService.createPerson(person);
+    			return new ModelAndView("redirect:/person/list");
+    		} else {
+    			ModelAndView mav = new ModelAndView("person/create");
+    			mav.addObject("person", person);
+    			mav.addObject("errors", errors);
+    			return mav;
+    		}
+    	}
     }
 
     /**
@@ -82,10 +91,29 @@ public class PersonController {
     @RequestMapping(value = "edit/{personId}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable Integer personId) {
         ModelAndView mav = new ModelAndView("person/edit");
+        Person person = personService.readPerson(personId);
+        if(person.getClientId() != null){
+        	mav.addObject("currentClient",clientService.readClient(person.getClientId()));
+        }
         mav.addObject("person", personService.readPerson(personId));
+        mav.addObject("clients",clientService.list());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
     }
+    
+    
+    @RequestMapping(value = "view/{personId}", method = RequestMethod.GET)
+    public ModelAndView view(@PathVariable Integer personId) {
+        ModelAndView mav = new ModelAndView("person/view");
+        Person person = personService.readPerson(personId);
+        if(person.getClientId() != null){
+        	mav.addObject("currentClient",clientService.readClient(person.getClientId()));
+        }
+        mav.addObject("person", personService.readPerson(personId));
+
+        return mav;
+    }
+    
 
     /**
      * Validates and saves an edited person.
@@ -96,16 +124,20 @@ public class PersonController {
      * @return redirect, or edit view with errors
      */
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public ModelAndView edit(Person person) {
-        List<String> errors = personService.validatePerson(person);
-        if (errors.isEmpty()) {
-            personService.updatePerson(person);
-            return new ModelAndView("redirect:/person/list");
-        } else {
-            ModelAndView mav = new ModelAndView("person/edit");
-            mav.addObject("person", person);
-            mav.addObject("errors", errors);
-            return mav;
+    public ModelAndView edit(Person person, @RequestParam String command) {
+    	if (COMMAND_CANCEL.equals(command)) {
+    		return new ModelAndView("redirect:/person/list");
+    	}else{
+    		List<String> errors = personService.validatePerson(person);
+    		if (errors.isEmpty()) {
+    			personService.updatePerson(person);
+    			return new ModelAndView("redirect:/person/list");
+    		} else {
+    			ModelAndView mav = new ModelAndView("person/edit");
+    			mav.addObject("person", person);
+    			mav.addObject("errors", errors);
+    			return mav;
+    		}
         }
     }
 

@@ -53,4 +53,17 @@ public interface PersonService {
      * @return list of error messages
      */
     List<String> validatePerson(Person person);
+    
+    
+    /**
+     * Returns a list of Person objects that are not 
+     * associated with a client
+     * 
+     * @return List<Person>
+     */
+    List<Person> findAvailablePeople();
+    
+    void removeClient(Integer personId);
+    
+    void addClient(Integer personId, Integer clientId);
 }

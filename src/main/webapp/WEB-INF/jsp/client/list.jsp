@@ -13,8 +13,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Person Listing</title>
-                         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+        <title>Client Listing</title>
+                        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.js"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -24,32 +24,39 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <h1>Person Listing</h1>     
-        <p><a href="${pageContext.request.contextPath}/person/create">Create New Person</a></p>
+  </head>
+        <h3>Client Listing</h3>     
+        <p><a href="${pageContext.request.contextPath}/client/create">Create New Client</a></p>
         <c:choose>
-            <c:when test="${fn:length(persons) gt 0}">
+            <c:when test="${fn:length(clients) gt 0}">
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email Address</th>
+                            <th>Company Name</th>
+                            <th>Website</th>
+                            <th>Phone</th>
+                            <th>Physical Address</th>
+                            <th>Mailing Address</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${persons}" var="person">
+                        <c:forEach items="${clients}" var="client">
                             <tr>
-                                <td>${person.firstName}</td>
-                                <td>${person.lastName}</td>
-                                <td>${person.emailAddress}</td>
+                                <td>${client.companyName}</td>
+                                <td>${client.website}</td>
+                                <td>${client.phone}</td>
+                                <td>${client.pStreetAddress }<br/>
+                                	${client.pCity } ${client.pState } ${client.pZipCode }
+                                </td>
+                                <td>${client.mStreetAddress }<br/>
+                                	${client.mCity } ${client.mState } ${client.mZipCode }
+                                </td>
                                 <td>
-                                <a href="${pageContext.request.contextPath}/person/view/${person.personId}">View </a>
-                                    <a href="${pageContext.request.contextPath}/person/edit/${person.personId}">Edit </a>
-                                    <a href="${pageContext.request.contextPath}/person/delete/${person.personId}">Delete </a>
+                                <a href="${pageContext.request.contextPath}/client/view/${client.clientId}">View</a>
+                                    <a href="${pageContext.request.contextPath}/client/edit/${client.clientId}">Edit </a>
+                                    <a href="${pageContext.request.contextPath}/client/delete/${client.clientId}">Delete</a>
                                 </td>
                             </tr>
                         </c:forEach>

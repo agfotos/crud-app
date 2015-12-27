@@ -44,4 +44,13 @@ public interface PersonDao {
      * @param id the person ID
      */
     void deletePerson(Integer id);
+    
+    
+    List<Person> findContactsForClient(Integer id);
+    
+    List<Person> findAvailablePeople();
+    
+    void addClient(Integer personId, Integer clientId);
+    
+    void removeClient(Integer id);
 }

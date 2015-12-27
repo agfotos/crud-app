@@ -70,4 +70,20 @@ public class DefaultPersonService implements PersonService {
         Collections.sort(errors);
         return errors;
     }
+
+	@Override
+	public List<Person> findAvailablePeople() {
+		List<Person> list = personDao.findAvailablePeople();
+		return list;
+	}
+	
+	@Override
+	public void removeClient(Integer personId){
+		personDao.removeClient(personId);
+	}
+	
+	@Override
+	public void addClient(Integer personId, Integer clientId){
+		personDao.addClient(personId, clientId);
+	}
 }
