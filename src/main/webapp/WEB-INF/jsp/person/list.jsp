@@ -1,6 +1,6 @@
 <%@ include file="../header.jsp" %>
         <h3>Person Listing</h3>     
-        <p><a href="${pageContext.request.contextPath}/person/create">Create New Person</a></p>
+        <p><a href="${pageContext.request.contextPath}/person/create" class="btn btn-info" role="button">Create New Person</a></p>
         <c:choose>
             <c:when test="${fn:length(persons) gt 0}">
             <div class="table-responsive">
@@ -20,9 +20,9 @@
                                 <td>${person.lastName}</td>
                                 <td>${person.emailAddress}</td>
                                 <td>
-                                <a href="${pageContext.request.contextPath}/person/view/${person.personId}">View </a>
-                                    <a href="${pageContext.request.contextPath}/person/edit/${person.personId}">Edit </a>
-                                    <a href="${pageContext.request.contextPath}/person/delete/${person.personId}">Delete </a>
+                                <a href="${pageContext.request.contextPath}/person/view/${person.personId}" class="btn btn-info" role="button">View </a>
+                                    <a href="${pageContext.request.contextPath}/person/edit/${person.personId}" class="btn btn-info" role="button">Edit </a>
+                                    <a href="${pageContext.request.contextPath}/person/delete/${person.personId}" class="btn btn-info" role="button">Delete </a>
                                 </td>
                             </tr>
                         </c:forEach>

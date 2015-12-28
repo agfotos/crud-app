@@ -12,8 +12,8 @@
           		
           		<br/>
   				<br/>
-  				<a href="${pageContext.request.contextPath}/client/list">&lt;Back</a>
-           		<a href="${pageContext.request.contextPath}/client/edit/${client.clientId}">Edit </a>
+  				<a href="${pageContext.request.contextPath}/client/list" class="btn btn-info" role="button">Back</a>
+           		<a href="${pageContext.request.contextPath}/client/edit/${client.clientId}" class="btn btn-info" role="button">Edit </a>
  
 		
 			</div>

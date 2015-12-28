@@ -3,7 +3,7 @@
       $(function() {  
     		 $.validator.addMethod("customemail", 
     				    function(value, element) {
-    				        return /^([a-zA-Z0-9_.\-+])+\@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/.test(value);
+    				        return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,6})?$/.test(value);
     				    }, 
     				    "Invalid email format"
     				);
@@ -117,7 +117,15 @@
 				<label class="control-label col-sm-2" for="clientId">Client:</label>
 				<div class="col-sm-2">
 					<select class="form-control" name="clientId" id="clientId">
-						<option value="">Remove Client</option>
+						<c:choose>
+							<c:when test="${person.clientId ne null}">
+								<option value="">Remove Client</option>
+							</c:when>
+							<c:otherwise>
+								<option value="">Select Client</option>
+							</c:otherwise>
+						</c:choose>
+					
             	 		<c:forEach items="${clients}" var="client" >
             	 			<option value="${client.clientId }" <c:if test="${person.clientId eq client.clientId}"> SELECTED</c:if>>${client.companyName }</option>
             	 		</c:forEach>

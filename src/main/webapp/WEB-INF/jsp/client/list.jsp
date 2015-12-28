@@ -1,6 +1,6 @@
 <%@ include file="../header.jsp" %>
         <h3>Client Listing</h3>     
-        <p><a href="${pageContext.request.contextPath}/client/create">Create New Client</a></p>
+        <p><a href="${pageContext.request.contextPath}/client/create" class="btn btn-info" role="button">Create New Client</a></p>
         <c:choose>
             <c:when test="${fn:length(clients) gt 0}">
             <div class="table-responsive">
@@ -28,9 +28,9 @@
                                 	${client.mCity } ${client.mState } ${client.mZipCode }
                                 </td>
                                 <td>
-                                <a href="${pageContext.request.contextPath}/client/view/${client.clientId}">View</a>
-                                    <a href="${pageContext.request.contextPath}/client/edit/${client.clientId}">Edit </a>
-                                    <a href="${pageContext.request.contextPath}/client/delete/${client.clientId}">Delete</a>
+                                <a href="${pageContext.request.contextPath}/client/view/${client.clientId}" class="btn btn-info" role="button">View</a>
+                                    <a href="${pageContext.request.contextPath}/client/edit/${client.clientId}" class="btn btn-info" role="button">Edit </a>
+                                    <a href="${pageContext.request.contextPath}/client/delete/${client.clientId}" class="btn btn-info" role="button">Delete</a>
                                 </td>
                             </tr>
                         </c:forEach>

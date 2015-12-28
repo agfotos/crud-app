@@ -20,8 +20,8 @@
         	</div>
         	
         </div>
-        	
-	  <a href="${pageContext.request.contextPath}/person/list">&lt;Back</a>
-	  <a href="${pageContext.request.contextPath}/person/edit/${person.personId}">Edit</a>
+      
+	  <a href="${pageContext.request.contextPath}/person/list" class="btn btn-info" role="button" >Back</a>
+	  <a href="${pageContext.request.contextPath}/person/edit/${person.personId}" class="btn btn-info" role="button">Edit</a>
     </body>
 </html>

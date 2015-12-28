@@ -3,7 +3,7 @@
  $(function() {  
 	 $.validator.addMethod("customemail", 
 			    function(value, element) {
-			        return /^([a-zA-Z0-9_.\-+])+\@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/.test(value);
+			        return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,6})?$/.test(value);
 			    }, 
 			    "Invalid email format"
 			);
