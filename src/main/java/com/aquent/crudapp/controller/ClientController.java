@@ -91,7 +91,11 @@ public class ClientController {
     @RequestMapping(value = "edit/{clientId}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable Integer clientId) {
         ModelAndView mav = new ModelAndView("client/edit");
-        mav.addObject("client", clientService.readClient(clientId));
+        Client client = clientService.readClient(clientId);
+        if(null == client){
+        	return new ModelAndView("client/error");
+        }
+        mav.addObject("client", client);
         mav.addObject("people",personService.findAvailablePeople());
         mav.addObject("errors", new ArrayList<String>());
         return mav;
@@ -107,6 +111,9 @@ public class ClientController {
     public ModelAndView view(@PathVariable Integer clientId) {
         ModelAndView mav = new ModelAndView("client/view");
         Client client = clientService.readClient(clientId);
+        if(null == client){
+        	return new ModelAndView("client/error");
+        }
         mav.addObject("client", client);
         return mav;
     }

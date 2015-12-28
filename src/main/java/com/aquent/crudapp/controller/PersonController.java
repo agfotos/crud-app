@@ -92,12 +92,19 @@ public class PersonController {
     public ModelAndView edit(@PathVariable Integer personId) {
         ModelAndView mav = new ModelAndView("person/edit");
         Person person = personService.readPerson(personId);
-        if(person.getClientId() != null){
-        	mav.addObject("currentClient",clientService.readClient(person.getClientId()));
+        List<String> errors = new ArrayList<String>();
+        if(null == person){
+        	return new ModelAndView("person/error");
+        }else{
+        	if(person.getClientId() != null){
+        		mav.addObject("currentClient",clientService.readClient(person.getClientId()));
+        	}
+     
+        	mav.addObject("person", personService.readPerson(personId));
+        	mav.addObject("clients",clientService.list());
+        	mav.addObject("errors", new ArrayList<String>());
         }
-        mav.addObject("person", personService.readPerson(personId));
-        mav.addObject("clients",clientService.list());
-        mav.addObject("errors", new ArrayList<String>());
+        
         return mav;
     }
     
@@ -106,11 +113,14 @@ public class PersonController {
     public ModelAndView view(@PathVariable Integer personId) {
         ModelAndView mav = new ModelAndView("person/view");
         Person person = personService.readPerson(personId);
-        if(person.getClientId() != null){
-        	mav.addObject("currentClient",clientService.readClient(person.getClientId()));
+        if(null == person){
+        	return new ModelAndView("person/error");
+        }else{
+        	if(person.getClientId() != null){
+        		mav.addObject("currentClient",clientService.readClient(person.getClientId()));
+        	}
+        	mav.addObject("person", personService.readPerson(personId));
         }
-        mav.addObject("person", personService.readPerson(personId));
-
         return mav;
     }
     

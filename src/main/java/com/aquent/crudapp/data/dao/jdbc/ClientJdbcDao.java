@@ -54,8 +54,14 @@ public class ClientJdbcDao implements ClientDao {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public Client readClient(Integer clientId) {
-    	Client client = namedParameterJdbcTemplate.queryForObject(SQL_READ_CLIENT, Collections.singletonMap("clientId", clientId), new ClientRowMapper());
-    	loadContacts(client);
+    	Client client = null;
+    	try{
+    		client = namedParameterJdbcTemplate.queryForObject(SQL_READ_CLIENT, Collections.singletonMap("clientId", clientId), new ClientRowMapper());
+    		loadContacts(client);
+    	}catch(Exception e){
+    		//handle better
+    	}
+    	
     	return client;
     }
     
